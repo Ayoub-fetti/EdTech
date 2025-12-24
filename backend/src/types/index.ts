@@ -40,3 +40,38 @@ export interface LoginResponse {
     role: string;
   };
 }
+
+export interface Session {
+  id: number;
+  dateSession: Date;
+  startTime: string;
+  endTime: string;
+  courseId: number;
+  teacherId: number;
+  createdAt: Date;
+}
+
+export interface CreateSessionDto {
+  dateSession: string;
+  startTime: string;
+  endTime: string;
+  courseId: number;
+  teacherId: number;
+}
+
+export interface CreateStudentDto {
+  email: string;
+  password: string;
+  name: string;
+}
+
+export interface UpdateStudentDto {
+  name?: string;
+  email?: string;
+}
+
+export interface CreateCourseDto {
+  title: string;
+  description?: string;
+  teacherId: number;
+}
