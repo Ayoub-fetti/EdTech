@@ -1,8 +1,8 @@
 -- Insert test data
 INSERT INTO users (email, password, name, role) VALUES
-('admin@edtech.com', '$2a$10$hash', 'Admin User', 'admin'),
-('teacher@edtech.com', '$2a$10$hash', 'Teacher User', 'teacher'),
-('student@edtech.com', '$2a$10$hash', 'Student User', 'student');
+('admin@edtech.com', '$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'Admin User', 'admin'),
+('teacher@edtech.com', '$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'Teacher User', 'teacher'),
+('student@edtech.com', '$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'Student User', 'student');
 
 INSERT INTO courses (title, description, teacher_id) VALUES
 ('Introduction to Programming', 'Learn the basics of programming', 2),

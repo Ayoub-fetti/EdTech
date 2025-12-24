@@ -1,3 +1,10 @@
+import { Request } from 'express';
+
+export enum Role {
+  TEACHER = 'teacher',
+  ADMIN = 'admin'
+}
+
 export interface User {
   id: number;
   email: string;
@@ -17,4 +24,19 @@ export interface Course {
 
 export interface AuthRequest extends Request {
   user?: User;
+}
+
+export interface LoginRequest {
+  email: string;
+  password: string;
+}
+
+export interface LoginResponse {
+  token: string;
+  user: {
+    id: number;
+    email: string;
+    name: string;
+    role: string;
+  };
 }

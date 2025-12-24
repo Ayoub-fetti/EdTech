@@ -1,29 +1,44 @@
 import { Request, Response } from 'express';
 import { UserService } from '../services/userService';
+import { LoginRequest, LoginResponse } from '../types';
 
 export class AuthController {
   static async login(req: Request, res: Response) {
     try {
-      const { email, password } = req.body;
+      const { email, password }: LoginRequest = req.body;
       
-      // TODO: Get user from database
-      // const user = await UserService.findByEmail(email);
-      
-      res.json({ message: 'Login endpoint' });
+      if (!email || !password) {
+        return res.status(400).json({ error: 'Email and password required' });
+      }
+
+      const user = await UserService.findByEmail(email);
+      if (!user) {
+        return res.status(401).json({ error: 'Invalid credentials' });
+      }
+
+      const isValid = await UserService.comparePassword(password, user.password);
+      if (!isValid) {
+        return res.status(401).json({ error: 'Invalid credentials' });
+      }
+
+      const token = UserService.generateToken(user);
+      const response: LoginResponse = {
+        token,
+        user: {
+          id: user.id,
+          email: user.email,
+          name: user.name,
+          role: user.role
+        }
+      };
+
+      res.json(response);
     } catch (error) {
       res.status(500).json({ error: 'Internal server error' });
     }
   }
 
-  static async register(req: Request, res: Response) {
-    try {
-      const { email, password, name, role } = req.body;
-      
-      // TODO: Create user in database
-      
-      res.json({ message: 'Register endpoint' });
-    } catch (error) {
-      res.status(500).json({ error: 'Internal server error' });
-    }
+  static async logout(req: Request, res: Response) {
+    res.json({ message: 'Logged out successfully' });
   }
 }

@@ -1,6 +1,7 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { User } from '../types';
+import { pool } from './database';
 
 export class UserService {
   static async hashPassword(password: string): Promise<string> {
@@ -17,5 +18,9 @@ export class UserService {
       process.env.JWT_SECRET as string,
       { expiresIn: '24h' }
     );
+  }
+  static async findByEmail(email: string): Promise<User | null> {
+    const result = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
+    return result.rows[0] || null;
   }
 }
