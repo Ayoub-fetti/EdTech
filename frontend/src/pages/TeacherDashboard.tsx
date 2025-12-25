@@ -1,7 +1,6 @@
-// /home/ayoub/Documents/youcode/EdTech/frontend/src/pages/TeacherDashboard.tsx
-
 import { useState, useEffect } from 'react';
-import { courseService, sessionService } from '../services/api';
+import { courseService } from '../services/courseService';
+import { sessionService } from '../services/sessionService';
 import { type Course, type Session } from '../types/index';
 
 export const TeacherDashboard = () => {

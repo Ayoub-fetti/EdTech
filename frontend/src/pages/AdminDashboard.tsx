@@ -1,7 +1,6 @@
-// /home/ayoub/Documents/youcode/EdTech/frontend/src/pages/AdminDashboard.tsx
-
 import { useState, useEffect } from 'react';
-import { courseService, sessionService } from '../services/api';
+import { courseService } from '../services/courseService.ts';
+import { sessionService } from '../services/sessionService.ts';
 import { type Course, type Session } from '../types/index.ts';
 
 export const AdminDashboard = () => {

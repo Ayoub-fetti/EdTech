@@ -1,7 +1,5 @@
-// /home/ayoub/Documents/youcode/EdTech/frontend/src/pages/StudentDashboard.tsx
-
 import { useState, useEffect } from 'react';
-import { courseService } from '../services/api';
+import { courseService } from '../services/courseService';
 import { type Course } from '../types/index';
 
 export const StudentDashboard = () => {
