@@ -75,3 +75,45 @@ export interface CreateCourseDto {
   description?: string;
   teacherId: number;
 }
+
+export enum PresenceStatus {
+  PRESENT = 'present',
+  ABSENT = 'absent',
+  LATE = 'late'
+}
+
+export interface Presence {
+  id: number;
+  sessionId: number;
+  studentId: number;
+  status: PresenceStatus;
+  createdAt: Date;
+}
+
+export interface CreatePresenceDto {
+  sessionId: number;
+  studentId: number;
+  status: PresenceStatus;
+}
+
+export type PresenceApiResponse = {
+  success: true;
+  data: Presence;
+} | {
+  success: false;
+  error: string;
+};
+
+export type PresenceListApiResponse = {
+  success: true;
+  data: Presence[];
+  indicators?: {
+    totalSessions: number;
+    absences: number;
+    lates: number;
+    attendanceRate: number;
+  };
+} | {
+  success: false;
+  error: string;
+};

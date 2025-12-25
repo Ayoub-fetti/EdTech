@@ -48,6 +48,17 @@ CREATE TABLE sessions (
     UNIQUE(date_session, start_time, course_id, teacher_id)
 );
 
+CREATE TABLE presences (
+    id SERIAL PRIMARY KEY,
+    session_id INTEGER NOT NULL,
+    student_id INTEGER NOT NULL,
+    status VARCHAR(10) CHECK (status IN ('present', 'absent', 'late')) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (session_id) REFERENCES sessions(id) ON DELETE CASCADE,
+    FOREIGN KEY (student_id) REFERENCES users(id) ON DELETE CASCADE,
+    UNIQUE(session_id, student_id)
+);
+
 -- Create indexes
 CREATE INDEX idx_users_email ON users(email);
 CREATE INDEX idx_courses_teacher ON courses(teacher_id);
@@ -56,6 +67,9 @@ CREATE INDEX idx_enrollments_course ON enrollments(course_id);
 CREATE INDEX idx_sessions_course ON sessions(course_id);
 CREATE INDEX idx_sessions_teacher ON sessions(teacher_id);
 CREATE INDEX idx_sessions_date ON sessions(date_session);
+CREATE INDEX idx_presences_session ON presences(session_id);
+CREATE INDEX idx_presences_student ON presences(student_id);
+CREATE INDEX idx_presences_status ON presences(status);
 
 -- to run this       sudo -u postgres psql -f ./database/schema.sql
 
