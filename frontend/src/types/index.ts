@@ -12,9 +12,23 @@ export interface Course {
   teacherId: number;
 }
 
+export interface Session {
+  id: number;
+  dateSession: string;
+  startTime: string;
+  endTime: string;
+  courseId: number;
+  teacherId: number;
+}
+
 export interface AuthContextType {
   user: User | null;
   login: (email: string, password: string) => Promise<void>;
   logout: () => void;
   isLoading: boolean;
+}
+
+export interface LoginResponse {
+  token: string;
+  user: User;
 }

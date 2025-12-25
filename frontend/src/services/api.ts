@@ -17,6 +17,14 @@ api.interceptors.request.use((config) => {
 export const authService = {
   login: (email: string, password: string) =>
     api.post('/auth/login', { email, password }),
-  register: (email: string, password: string, name: string, role: string) =>
-    api.post('/auth/register', { email, password, name, role }),
+};
+
+export const courseService = {
+  getCourses: () => api.get('/courses'),
+  getCourseById: (id: number) => api.get(`/courses/${id}`),
+};
+
+export const sessionService = {
+  getSessions: () => api.get('/sessions'),
+  getSessionsByCourse: (courseId: number) => api.get(`/sessions/course/${courseId}`),
 };
