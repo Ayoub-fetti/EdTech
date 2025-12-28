@@ -5,24 +5,32 @@ import { Session, CreateSessionDto } from '../types';
 export class SessionService {
   async create(data: CreateSessionDto): Promise<Session> {
     const result = await pool.query(
-      'INSERT INTO sessions (date_session, start_time, end_time, course_id, teacher_id) VALUES ($1, $2, $3, $4, $5) RETURNING *',
+      'INSERT INTO sessions (date_session, start_time, end_time, course_id, teacher_id) VALUES ($1, $2, $3, $4, $5) RETURNING id, date_session as "dateSession", start_time as "startTime", end_time as "endTime", course_id as "courseId", teacher_id as "teacherId", created_at as "createdAt"',
       [data.dateSession, data.startTime, data.endTime, data.courseId, data.teacherId]
     );
     return result.rows[0];
   }
 
   async findAll(): Promise<Session[]> {
-    const result = await pool.query('SELECT * FROM sessions ORDER BY date_session DESC, start_time ASC');
+    const result = await pool.query(
+      'SELECT id, date_session as "dateSession", start_time as "startTime", end_time as "endTime", course_id as "courseId", teacher_id as "teacherId", created_at as "createdAt" FROM sessions ORDER BY date_session DESC, start_time ASC'
+    );
     return result.rows;
   }
 
   async findById(id: number): Promise<Session | null> {
-    const result = await pool.query('SELECT * FROM sessions WHERE id = $1', [id]);
+    const result = await pool.query(
+      'SELECT id, date_session as "dateSession", start_time as "startTime", end_time as "endTime", course_id as "courseId", teacher_id as "teacherId", created_at as "createdAt" FROM sessions WHERE id = $1',
+      [id]
+    );
     return result.rows[0] || null;
   }
 
   async findByCourse(courseId: number): Promise<Session[]> {
-    const result = await pool.query('SELECT * FROM sessions WHERE course_id = $1 ORDER BY date_session DESC', [courseId]);
+    const result = await pool.query(
+      'SELECT id, date_session as "dateSession", start_time as "startTime", end_time as "endTime", course_id as "courseId", teacher_id as "teacherId", created_at as "createdAt" FROM sessions WHERE course_id = $1 ORDER BY date_session DESC',
+      [courseId]
+    );
     return result.rows;
   }
 

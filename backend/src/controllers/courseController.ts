@@ -51,3 +51,21 @@ export const deleteCourse = async (req: Request, res: Response) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+export const getEnrolledStudents = async (req: Request, res: Response) => {
+  try {
+    const students = await courseService.getEnrolledStudents(parseInt(req.params.id));
+    res.json(students);
+  } catch (error: any) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+export const getStudentCourses = async (req: Request, res: Response) => {
+  try {
+    const courses = await courseService.getStudentCourses(parseInt(req.params.studentId));
+    res.json(courses);
+  } catch (error: any) {
+    res.status(500).json({ error: error.message });
+  }
+};

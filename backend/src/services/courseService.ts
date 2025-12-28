@@ -1,5 +1,5 @@
 import { pool } from './database';
-import { Course, CreateCourseDto } from '../types';
+import { Course, CreateCourseDto, User } from '../types';
 
 export class CourseService {
   async create(data: CreateCourseDto): Promise<Course> {
@@ -50,5 +50,29 @@ export class CourseService {
   async delete(id: number): Promise<boolean> {
     const result = await pool.query('DELETE FROM courses WHERE id = $1', [id]);
     return result.rowCount > 0;
+  }
+
+  async getEnrolledStudents(courseId: number): Promise<User[]> {
+    const result = await pool.query(
+      `SELECT u.id, u.email, u.name, u.role, u.created_at 
+       FROM users u
+       INNER JOIN enrollments e ON u.id = e.student_id
+       WHERE e.course_id = $1 AND u.role = 'student'
+       ORDER BY u.name`,
+      [courseId]
+    );
+    return result.rows;
+  }
+
+  async getStudentCourses(studentId: number): Promise<Course[]> {
+    const result = await pool.query(
+      `SELECT c.id, c.title, c.description, c.teacher_id, c.created_at
+       FROM courses c
+       INNER JOIN enrollments e ON c.id = e.course_id
+       WHERE e.student_id = $1
+       ORDER BY c.title`,
+      [studentId]
+    );
+    return result.rows;
   }
 }

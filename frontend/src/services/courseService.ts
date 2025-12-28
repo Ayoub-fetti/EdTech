@@ -13,4 +13,10 @@ export const courseService = {
   
   deleteCourse: (id: number) =>
     api.delete(`/courses/${id}`),
+  
+  getEnrolledStudents: (courseId: number) =>
+    api.get(`/courses/${courseId}/students`),
+  
+  getStudentCourses: (studentId: number) =>
+    api.get(`/courses/student/${studentId}`),
 };

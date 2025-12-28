@@ -1,14 +1,12 @@
-import { api } from './api';
+import { api } from "./api";
 
 export const studentService = {
-  createStudent: (data: { email: string; password: string; name: string }) =>
+  createStudent: (data: { name: string; email: string; password: string }) =>
     api.post('/students', data),
   
-  getStudents: () =>
-    api.get('/students'),
+  getStudents: () => api.get('/students'),
   
-  getStudent: (id: number) =>
-    api.get(`/students/${id}`),
+  getStudent: (id: number) => api.get(`/students/${id}`),
   
   updateStudent: (id: number, data: { name?: string; email?: string }) =>
     api.put(`/students/${id}`, data),
@@ -16,6 +14,6 @@ export const studentService = {
   deleteStudent: (id: number) =>
     api.delete(`/students/${id}`),
   
-  enrollStudent: (id: number, courseId: number) =>
-    api.post(`/students/${id}/enroll`, { courseId }),
+  enrollStudent: (studentId: number, courseId: number) =>
+    api.post(`/students/${studentId}/enroll`, { courseId }),
 };

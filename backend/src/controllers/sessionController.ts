@@ -1,21 +1,18 @@
 import { Request, Response } from 'express';
 import { SessionService } from '../services/sessionService';
+import { AuthRequest } from '../types';
 
 const sessionService = new SessionService();
 
 export const createSession = async (req: AuthRequest, res: Response) => {
   try {
-    if (!req.user || req.user.role !== 'teacher') {
-      return res.status(403).json({ error: 'Unauthorized' });
-    }
-
     const session = await sessionService.create({
       ...req.body,
-      teacherId: req.user.id,
+      teacherId: req.user!.id,
     });
 
     res.status(201).json(session);
-  } catch (error) {
+  } catch (error: any) {
     res.status(400).json({ error: error.message });
   }
 };
