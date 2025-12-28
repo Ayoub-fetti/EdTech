@@ -2,7 +2,7 @@ import { courseService } from '../courseService';
 import { sessionService } from '../sessionService';
 import { presenceService } from '../presenceService';
 
-export const studentDashboardService = {
+export const studentService = {
   getCourses: courseService.getCourses,
   getCourseById: courseService.getCourseById,
   

@@ -3,9 +3,17 @@ import { SessionService } from '../services/sessionService';
 
 const sessionService = new SessionService();
 
-export const createSession = async (req: Request, res: Response) => {
+export const createSession = async (req: AuthRequest, res: Response) => {
   try {
-    const session = await sessionService.create(req.body);
+    if (!req.user || req.user.role !== 'teacher') {
+      return res.status(403).json({ error: 'Unauthorized' });
+    }
+
+    const session = await sessionService.create({
+      ...req.body,
+      teacherId: req.user.id,
+    });
+
     res.status(201).json(session);
   } catch (error) {
     res.status(400).json({ error: error.message });

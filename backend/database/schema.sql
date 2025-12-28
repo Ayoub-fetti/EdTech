@@ -52,7 +52,7 @@ CREATE TABLE presences (
     id SERIAL PRIMARY KEY,
     session_id INTEGER NOT NULL,
     student_id INTEGER NOT NULL,
-    status VARCHAR(10) CHECK (status IN ('present', 'absent', 'late')) NOT NULL,
+    status VARCHAR(10) CHECK (status IN ('present', 'absent', 'late', 'excused')) NOT NULL, -- ✅ Ajout 'excused'
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (session_id) REFERENCES sessions(id) ON DELETE CASCADE,
     FOREIGN KEY (student_id) REFERENCES users(id) ON DELETE CASCADE,

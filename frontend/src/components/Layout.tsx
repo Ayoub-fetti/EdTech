@@ -6,21 +6,20 @@ export const Layout = () => {
 
   return (
     <div>
-      <nav style={{ padding: '10px', borderBottom: '1px solid #ccc' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <h1>EdTech</h1>
-          
+      <nav className="p-4 bg-gray-800 text-white">
+        <div className="flex justify-between items-center">
+          <h1 className="text-xl font-bold">EdTech</h1>
           {user && (
-            <div style={{ display: 'flex', gap: '15px', alignItems: 'center' }}>
-              <Link to={`/${user.role}`}>Dashboard</Link>
-              <span>Welcome, {user.name}</span>
-              <button onClick={logout}>Logout</button>
+            <div className="flex gap-4">
+              <Link to="/sessions">Sessions</Link>
+              <Link to="/courses">Courses</Link>
+              <Link to="/students">Students</Link>
+              <button onClick={logout} className="bg-red-500 px-4 py-2 rounded">Logout</button>
             </div>
           )}
         </div>
       </nav>
-      
-      <main style={{ padding: '20px' }}>
+      <main className="p-6">
         <Outlet />
       </main>
     </div>

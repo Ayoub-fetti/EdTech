@@ -20,6 +20,14 @@ export interface Session {
   courseId: number;
   teacherId: number;
 }
+export interface Presence {
+  id: number;
+  sessionId: number;
+  studentId: number;
+  status: 'present' | 'absent' | 'late' | 'excused';
+  createdAt: string;
+}
+
 
 export interface AuthContextType {
   user: User | null;

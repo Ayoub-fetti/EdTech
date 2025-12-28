@@ -79,7 +79,8 @@ export interface CreateCourseDto {
 export enum PresenceStatus {
   PRESENT = 'present',
   ABSENT = 'absent',
-  LATE = 'late'
+  LATE = 'late',
+  EXCUSED = 'excused'
 }
 
 export interface Presence {
