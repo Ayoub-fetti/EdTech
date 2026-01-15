@@ -16,7 +16,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       
       if (token && userData) {
         const parsedUser = JSON.parse(userData);
-        // Créer un nouvel objet pour éviter les références cross-origin
         setUser({
           id: parsedUser.id,
           email: parsedUser.email,
@@ -35,7 +34,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const response = await authService.login(email, password);
     const { token, user: userData } = response.data;
     
-    // Créer un objet propre sans références externes
     const cleanUser = {
       id: userData.id,
       email: userData.email,
