@@ -15,3 +15,4 @@ export const teacherService = {
     api.delete(`/teachers/${id}`),
 };
 
+

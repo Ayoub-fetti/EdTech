@@ -51,3 +51,4 @@ export const deleteTeacher = async (req: Request, res: Response) => {
   }
 };
 
+

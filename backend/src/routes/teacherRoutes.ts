@@ -16,3 +16,4 @@ router.delete('/:id', deleteTeacher);
 
 export default router;
 
+
